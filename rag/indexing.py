@@ -27,7 +27,7 @@ embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
 vector_store = QdrantVectorStore.from_documents(
     documents=split_docs,
     url="http://localhost:6333",
-    collection_name="learning_vectors",
+    collection_name="learning_vectors_2",
     embedding=embedding_model,
 )
 
