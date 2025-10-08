@@ -1,9 +1,9 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 import json
-from .tools.run_command import run_command
-from .tools.write_file import write_file
-from .tools.read_file import read_file
+from tools.run_command import run_command
+from tools.write_file import write_file
+from tools.read_file import read_file
 
 load_dotenv()
 
