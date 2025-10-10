@@ -51,7 +51,7 @@ while True:
         # Agent loop
         while True:
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="o3",
                 response_format={"type": "json_object"},
                 messages=messages,
             )
@@ -67,8 +67,15 @@ while True:
 
             step = parsed_response.get("step")
 
+            # Handle PLAN step
+            if step == "plan":
+                plan_content = parsed_response.get("content")
+                if plan_content:
+                    print(f"📋 Planning: {plan_content}")
+                continue
+
             # Handle ACTION step
-            if step == "action":
+            elif step == "action":
                 tool_name = parsed_response.get("function")
                 tool_input = parsed_response.get("input")
 
@@ -116,13 +123,6 @@ while True:
                 content = parsed_response.get("content", "No response provided")
                 print(f"\n🤖 Assistant: {content}\n")
                 break
-
-            # Handle PLAN step (optional, just continue)
-            elif step == "plan":
-                plan_content = parsed_response.get("content")
-                if plan_content:
-                    print(f"📋 Planning: {plan_content}")
-                continue
 
             # Unknown step
             else:
