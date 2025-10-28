@@ -14,7 +14,7 @@ class State(TypedDict):
     llm_results: str | None
 
 
-# Node
+# Define Node
 def chat_bot(state: State):
     # llm call
     llm_results = client.chat.completions.create(
@@ -27,13 +27,15 @@ def chat_bot(state: State):
     return state
 
 
-# Edge
+# Add node
 graph_builder = StateGraph(State)
 
+# Add edge
 graph_builder.add_node("chat_bot", chat_bot)
 graph_builder.add_edge(START, "chat_bot")
 graph_builder.add_edge("chat_bot", END)
 
+# Compile graph
 graph = graph_builder.compile()
 
 
